@@ -92,6 +92,57 @@ LinkedList.prototype.pop = function() {
    this.size--;
 }
 
+LinkedList.prototype.contains = function(value) {
+   let currentHead = this.head;
+   try {
+      while(currentHead.data !== value) {
+         currentHead = currentHead.next;
+      }
+   } catch(error) {
+      console.log(`false`);
+      return "";
+   }
+   
+   if(currentHead.data == value) {
+      return true;
+   }
+}
+
+LinkedList.prototype.find = function(value) {
+   let currentHead = this.head;
+   let currentSize = this.size;
+
+   let index = 0;
+
+   while(currentSize !== 0) {
+      if(currentHead.data == value) {
+         return index;
+      } else {
+         currentHead = currentHead.next;
+         currentSize--;
+         index++;
+      }
+   }
+
+   return null;
+}
+
+LinkedList.prototype.toStrings = function() {
+   let array = [];
+   let currentHead = this.head;
+   array.push(currentHead.data);
+
+   while(currentHead.next !== null) {
+      currentHead = currentHead.next;
+      array.push(currentHead.data);
+   }
+
+   array.push(null);
+
+   let newArray = array.map(e => `(${e})`).join('->');
+   console.log(newArray);
+
+}
 
 let man = new LinkedList();
 man.append(3);
@@ -101,4 +152,10 @@ man.prepend(5);
 // console.log(man.tailItem());
 // man.pop();
 // console.log(man.at(4));
-console.log(man);
+// console.log(man.at(4));
+man.toStrings();
+// console.log(man.find(5));
+
+
+
+// console.log(man);
