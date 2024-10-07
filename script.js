@@ -1,4 +1,4 @@
-class LinkedList {
+export class LinkedList {
    head = null;
    size = 0;
 }
