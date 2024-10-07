@@ -61,25 +61,24 @@ LinkedList.prototype.at = function(number) {
    let currentHead = this.head;
    let count = 0;
 
-   if(number == 0) {
-      return currentHead.data;
-   }
-
-   while(true) {
+   while (currentHead !== null) {
+      if (count === number) {
+         return currentHead.data;
+      }
       currentHead = currentHead.next;
       count++;
-
-      if(count == number) {
-         break;
-      }
    }
-   return currentHead.data;
-}
+   return null;
+};
+
 
 LinkedList.prototype.pop = function() {
+   if(this.size === 0) {
+      return; // Do nothing if the list is empty
+   }
    let currentHead = this.head;
 
-   if(this.size == 1) {
+   if(this.size === 1) {
       this.head = null;
       this.size--;
       return;
@@ -90,22 +89,20 @@ LinkedList.prototype.pop = function() {
    }
    currentHead.next = null;
    this.size--;
-}
+};
+
 
 LinkedList.prototype.contains = function(value) {
    let currentHead = this.head;
-   try {
-      while(currentHead.data !== value) {
-         currentHead = currentHead.next;
+   while (currentHead !== null) {
+      if (currentHead.data === value) {
+         return true;
       }
-   } catch(error) {
-      return false;
+      currentHead = currentHead.next;
    }
-   
-   if(currentHead.data == value) {
-      return true;
-   }
-}
+   return false; // Return false if value is not found
+};
+
 
 LinkedList.prototype.find = function(value) {
    let currentHead = this.head;
@@ -195,16 +192,3 @@ LinkedList.prototype.removeAt = function(index) {
       this.size--;
    }
 }
-
-let list = new LinkedList();
-list.append(3);
-list.append(4);
-list.prepend(5);
-// console.log(list.headItem());
-// console.log(list.tailItem());
-// list.pop();
-// console.log(list.at(4));
-// console.log(list.at(4));
-list.insertAt(6,0);
-// list.removeAt(0);
-console.log(list);
