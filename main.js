@@ -9,4 +9,4 @@ list.append("hamster");
 list.append("snake");
 list.append("turtle");
 
-console.log(list);
+console.log(list.toString());

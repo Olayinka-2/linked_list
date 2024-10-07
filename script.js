@@ -123,7 +123,7 @@ LinkedList.prototype.find = function(value) {
    return null;
 }
 
-LinkedList.prototype.toStrings = function() {
+LinkedList.prototype.toString = function() {
    let array = [];
    let currentHead = this.head;
    array.push(currentHead.data);
@@ -136,7 +136,7 @@ LinkedList.prototype.toStrings = function() {
    array.push(null);
 
    let newArray = array.map(e => `( ${e} )`).join(' -> ');
-   console.log(newArray);
+   return newArray;
 
 }
 
