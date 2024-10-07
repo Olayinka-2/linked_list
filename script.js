@@ -88,7 +88,7 @@ LinkedList.prototype.pop = function() {
    while(currentHead.next.next !== null) {
       currentHead = currentHead.next;
    }
-   currentHead.next = currentHead.next.next;
+   currentHead.next = null;
    this.size--;
 }
 
@@ -99,8 +99,7 @@ LinkedList.prototype.contains = function(value) {
          currentHead = currentHead.next;
       }
    } catch(error) {
-      console.log(`false`);
-      return "";
+      return false;
    }
    
    if(currentHead.data == value) {
@@ -139,23 +138,73 @@ LinkedList.prototype.toStrings = function() {
 
    array.push(null);
 
-   let newArray = array.map(e => `(${e})`).join('->');
+   let newArray = array.map(e => `( ${e} )`).join(' -> ');
    console.log(newArray);
 
 }
 
-let man = new LinkedList();
-man.append(3);
-man.append(4);
-man.prepend(5);
-// console.log(man.headItem());
-// console.log(man.tailItem());
-// man.pop();
-// console.log(man.at(4));
-// console.log(man.at(4));
-man.toStrings();
-// console.log(man.find(5));
+LinkedList.prototype.insertAt = function(value, index) {
+   let currentHead = this.head;
+   let count = 0;
+   let previous = null
+   let newNode = new Node(value);
 
+   if (index === 0) {
+      newNode.next = this.head;
+      this.head = newNode;
+      this.size++;
+      return;
+   }
 
+   while(currentHead !== null && count < index) {
+      previous = currentHead;
+      currentHead = currentHead.next;
+      count++;
+   }
 
-// console.log(man);
+      if(index == count) {
+         newNode.next = currentHead
+         previous.next = newNode;
+         this.size++;
+      }
+}
+
+LinkedList.prototype.removeAt = function(index) {
+   if (index < 0 || index >= this.size) {
+      return;
+   }
+
+   let currentHead = this.head;
+   let previous = null;
+   let count = 0;
+
+   if(index == 0) {
+      this.head = currentHead.next;
+      this.size--; 
+      return;
+   }
+
+   while(currentHead !== null && count < index) {
+      previous = currentHead;
+      currentHead = currentHead.next
+      count++;
+   }
+
+   if(count == index){
+      previous.next = currentHead.next;
+      this.size--;
+   }
+}
+
+let list = new LinkedList();
+list.append(3);
+list.append(4);
+list.prepend(5);
+// console.log(list.headItem());
+// console.log(list.tailItem());
+// list.pop();
+// console.log(list.at(4));
+// console.log(list.at(4));
+list.insertAt(6,0);
+// list.removeAt(0);
+console.log(list);
